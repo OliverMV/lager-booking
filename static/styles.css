@@ -34,7 +34,7 @@ img {
     left: 20px;  /* Placerer teksten 20px fra venstre kant */
     transform: translateY(-50%);
     text-align: left;
-    font-size: 24px;
+    font-size: 15px;
     font-weight: bold;
 }
 
