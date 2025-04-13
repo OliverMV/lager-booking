@@ -1,0 +1,4 @@
+tools = [
+    {'name': 'Hammer', 'type': 'Hand Tool'},
+    {'name': 'Screwdriver', 'type': 'Hand Tool'}
+]

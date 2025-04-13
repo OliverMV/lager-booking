@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lager Booking</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+	<style>
+		.logout-btn {
+			position: absolute;
+			top: 20px;
+			right: 20px;
+			z-index: 1000;  /* Sørger for at knappen er øverst */
+		}
+		.logout-btn form {
+			display: inline;
+		}
+		.logout-btn button {
+			background-color: #ff4d4d;
+			color: white;
+			border: none;
+			padding: 10px 15px;
+			border-radius: 5px;
+			cursor: pointer;
+			font-size: 14px;
+		}
+	</style>
+</head>
+<body>
+
+    <!-- LOGOUT KNAP -->
+    {% if is_user_logged_in() %}
+    <div class="logout-btn">
+        <form action="{{ url_for('logout') }}" method="get">
+            <button type="submit">Log ud</button>
+        </form>
+    </div>
+    {% endif %}
+
+    <div class="logo">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+        <div class="header-text">
+            <p>EL-HJØRNET</p>
+            <p>LAGER-BOOKING</p>
+        </div>
+    </div>
+
+    <div class="separator"></div>
+
+    <div class="container">
+        <div class="form-section">
+            <h1>Book værktøj</h1>
+
+            {% if error %}
+                <p style="color: red;">{{ error }}</p>
+            {% endif %}
+
+            <form action="/book" method="post">
+                <div>
+                    <label for="name">Navn:</label>
+                    <input type="text" name="name" id="name" required><br><br>
+                </div>
+
+                <div>
+                    <label for="tool">Vælg værktøj:</label>
+                    <select name="tool" id="tool" required>
+                        {% for tool in tools %}
+                            <option value="{{ tool['name'] }}" {% if tool['status'] == 'booked' %} disabled {% endif %}>
+                                {{ tool['name'] }} {% if tool['status'] == 'booked' %}(Udlånt){% endif %}
+                            </option>
+                        {% endfor %}
+                    </select><br><br>
+                </div>
+
+                <div>
+                    <label for="start_date">Vælg startdato:</label>
+                    <input type="text" name="start_date" id="start_date" placeholder="Startdato" required><br><br>
+                </div>
+
+                <div>
+                    <label for="end_date">Vælg slutdato:</label>
+                    <input type="text" name="end_date" id="end_date" placeholder="Slutdato" required><br><br>
+                </div>
+
+                <button type="submit">Book</button>
+            </form>
+        </div>
+
+        <div class="bookings-section">
+            <h2>Aktive Bookinger</h2>
+            <ul>
+                {% for booking in bookings %}
+                    <li>
+                        {{ booking['booked_by'] }} har {{ booking['name'] }} fra {{ booking['start_date'] }} til {{ booking['end_date'] }}
+                        <form action="/return_tool" method="POST" style="display:inline;">
+                            <input type="hidden" name="tool_name" value="{{ booking['name'] }}">
+                            <button type="submit">Returnér værktøj</button>
+                        </form>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        flatpickr("#start_date", {
+            dateFormat: "Y-m-d",
+            minDate: "today",
+        });
+        flatpickr("#end_date", {
+            dateFormat: "Y-m-d",
+            minDate: "today",
+        });
+    </script>
+</body>
+</html>

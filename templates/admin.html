@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Lager Booking</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+	<style>
+		/* Style for logout button */
+		.logout-btn {
+			position: absolute;
+			top: 20px;
+			right: 20px;
+			z-index: 1000;  /* Sørger for at knappen er øverst */
+		}
+		.logout-btn form {
+			display: inline;
+		}
+		.logout-btn button {
+			background-color: #ff4d4d;
+			color: white;
+			border: none;
+			padding: 10px 15px;
+			border-radius: 5px;
+			cursor: pointer;
+			font-size: 14px;
+		}
+	</style>
+</head>
+<body>
+
+    <!-- Logo-sektionen med hvid baggrund og logout-knap i headeren -->
+    <div class="logo">
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+        <div class="header-text">
+            <p>EL-HJØRNET</p>
+            <p>LAGER-BOOKING</p>
+        </div>
+
+        <!-- LOGOUT KNAP i headeren -->
+        {% if is_logged_in() %}
+        <div class="logout-btn">
+            <form action="{{ url_for('logout') }}" method="get">
+                <button type="submit">Log ud</button>
+            </form>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- Orange separator linje -->
+    <div class="separator"></div>
+
+    <div class="admin-panel">
+
+        {% if is_logged_in() %}
+            <!-- Admin panel, hvis logget ind -->
+            <div class="admin-content">
+                <div class="admin-section">
+                    <h1>Admin Panel</h1>
+
+                    <!-- Fejlmeddelelse, hvis værktøjet allerede findes -->
+                    {% if error %}
+                        <p style="color: red;">{{ error }}</p>
+                    {% endif %}
+
+                    <h2>Tilføj Værktøj</h2>
+                    <form action="{{ url_for('add_tool') }}" method="POST" class="add-tool-form">
+                        <div class="tool-input">
+                            <input type="text" name="tool_name" placeholder="Værktøjsnavn" required>
+                            <button type="submit">Tilføj værktøj</button>
+                        </div>
+                        <input type="file" name="tool_image">  <!-- Mulighed for at vælge billede -->
+                    </form>
+
+                    <h2>Fjern Værktøj</h2>
+                    <ul>
+                        {% for tool in tools %}
+                            <li>{{ tool['name'] }} 
+                                <form action="{{ url_for('remove_tool', tool_name=tool['name']) }}" method="POST" style="display:inline;">
+                                    <button type="submit">Fjern</button>
+                                </form>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+
+                <div class="tools-section">
+                    <h2>Værktøjer</h2>
+                    <ul>
+                        {% for tool in tools %}
+                            <li>{{ tool['name'] }} - {{ tool['status'] }} 
+                                {% if tool['status'] == 'booked' %}
+                                    (Booket af: {{ tool['booked_by'] }} for {{ tool['booking_time'] }})
+                                {% endif %}
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+        {% endif %}
+    </div>
+
+</body>
+</html>

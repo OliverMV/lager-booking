@@ -1,0 +1,237 @@
+/* Generel styling for body */
+body {
+    background-color: #333333;  /* Sort baggrund på hele siden */
+    color: white;  /* Hvid tekst */
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+/* Logo-sektionen - Hvid baggrund */
+.logo {
+    background-color: white;  /* Hvid baggrund for logo-sektionen */
+    text-align: center;
+    padding: 20px 0;
+    flex-shrink: 0;
+    position: relative;
+}
+
+/* Logo-billede */
+img {
+    width: 25%;  /* Logoet vil nu tage 25% af bredden på skærmen */
+    max-width: 250px;  /* Max-størrelse for logoet */
+    height: auto;  /* Bevarer forholdet mellem bredde og højde */
+    margin-bottom: 20px;
+}
+
+/* Tekst, der placeres i venstre hjørne ved siden af logoet */
+.header-text {
+    position: absolute;
+    top: 50%;  /* Centrerer teksten vertikalt i forhold til logoet */
+    left: 20px;  /* Placerer teksten 20px fra venstre kant */
+    transform: translateY(-50%);
+    text-align: left;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.header-text p {
+    margin: 0;
+    color: black;
+}
+
+/* Orange separator linje */
+.separator {
+    background-color: #FF6F00;
+    height: 5px;
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+/* Container for de to sektioner (Book værktøj & Aktive bookinger) */
+.container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    flex-grow: 1;
+    gap: 20px;
+    flex-wrap: wrap; /* Dette sikrer, at de kan flytte sig til næste linje på mindre skærme */
+}
+
+/* Login-container */
+.login-container {
+    background-color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 300px;
+    margin: 0 auto;
+    margin-top: 100px;
+    position: relative;
+}
+
+/* Hvidt felt til "Book værktøj" sektionen */
+.form-section {
+    background-color: white;
+    padding: 20px;
+    color: black;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 48%;
+    flex-grow: 1;
+    min-height: 300px;
+    box-sizing: border-box;
+}
+
+/* Hvidt felt til "Aktive Bookinger" sektionen */
+.bookings-section {
+    background-color: white;
+    padding: 20px;
+    color: black;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 48%;
+    flex-grow: 1;
+    min-height: 300px;
+    box-sizing: border-box;
+}
+
+/* Styling for bokse */
+.box {
+    background-color: white;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#time {
+    padding: 10px;
+    margin: 10px 0;
+    border: 2px solid #ccc;
+    border-radius: 15px;
+    background-color: #f9f9f9;
+    font-size: 14px;
+    outline: none;
+}
+
+/* Formulardesign */
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Input og select felter */
+input[type="text"], select {
+    padding: 10px;
+    margin: 10px 0;
+    border: 2px solid #ccc;
+    border-radius: 0px;
+    background-color: #f9f9f9;
+    font-size: 14px;
+    outline: 1px solid black;
+    outline-offset: 3px;
+}
+
+/* Button */
+button {
+    background-color: #FF6F00;
+    color: black;
+    padding: 8px 15px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    margin-top: 10px;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: darkorange;
+}
+
+/* For at gøre tekst fed */
+h1, h2, label {
+    font-weight: bold;
+}
+
+/* Styling til lister */
+ul {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+li {
+    margin-bottom: 10px;
+}
+
+/* Admin-siden */
+.admin-panel {
+    position: relative;
+    padding: 20px;
+    flex-grow: 1;
+    height: 100%;  /* Sørger for, at containeren fylder hele højden */
+}
+
+
+/* Stil for hver sektion i admin-panelet */
+.admin-section {
+    background-color: white;
+    padding: 20px;
+    color: black;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    left: 25px;  /* Rykket lidt fra venstre */
+    top: 25px;  /* Flyttet lidt ned fra headeren */
+    width: 48%;
+    min-height: 300px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+.tools-section {
+    background-color: white;
+    padding: 20px;
+    color: black;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    right: 25px;  /* Rykket lidt fra højre */
+    top: 25px;  /* Flyttet lidt ned fra headeren */
+    width: 48%;
+    min-height: 300px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+/* Styling for knapper i admin sektionen */
+button.admin {
+    background-color: green;
+    color: white;
+}
+
+button.admin:hover {
+    background-color: darkgreen;
+}
+
+/* Responsivt design til mindre skærme */
+@media (max-width: 768px) {
+    .admin-panel {
+        padding: 10px;  /* Juster padding for små skærme */
+    }
+
+    .admin-section, .tools-section {
+        position: relative;  /* Fjern absolut position på små skærme */
+        width: 100%;  /* Gør hver sektion 100% bred */
+        margin-bottom: 10px;
+    }
+
+}
+
+/* Sort tekst kun i login sektionen */
+.login-container h2 {
+    color: black;  /* Gør h2-sort kun i login-containeren */
+}
